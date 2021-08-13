@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     '&:hover': {
       background: 'rgb(50, 250, 250)',
     }
+  },
+  empty: {
+    margin: 'auto'
   }
 });
 
@@ -21,7 +24,7 @@ const useStyles = makeStyles({
 function Tools(props) {
 
   const [anchor, setAnchor] = useState(null);
-  const { addNote, sortNotes, filter, setFilter, allBuckets } = props;
+  const { addNote, sortNotes, filter, groups, setFilter, allBuckets, setGroups } = props;
   const classes = useStyles();
 
   return (
@@ -34,18 +37,26 @@ function Tools(props) {
         <AddIcon />
       </IconButton>
 
-      <Button
+      <div className={classes.empty} />
+
+      {!groups && <Button
         className={classes.button}
-        style={{marginLeft: 'auto'}}
         onClick={sortNotes}
       >
         Sort Notes
+      </Button>}
+
+      <Button
+        className={classes.button}
+        onClick={() => setGroups(!groups)}
+      >
+        {groups ? 'Ungroup' : 'Group'} Notes
       </Button>
 
       <Button
         onClick={(event) => setAnchor(event.currentTarget)}
         className={classes.button}
-        style={{marginRight: '1rem'}}
+        style={{ marginRight: '1rem' }}
       >
         {filter ? filter : 'No Filter'}
       </Button>

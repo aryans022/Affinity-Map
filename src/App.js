@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Tools from './Tools';
 import Note from './Note';
+import GroupHighlights from './GroupHighlights';
 
 const useStyles = makeStyles({
   root: {
@@ -37,6 +38,7 @@ function App() {
   const [notes, setNotes] = useState(localStorage?.notes ? JSON.parse(localStorage.notes) : []);
   const [buckets, setBuckets] = useState(localStorage?.notes ? JSON.parse(localStorage.buckets) : []);
   const [filter, setFilter] = useState(null);
+  const [groups, setGroups] = useState(false);
 
   const setText = (idx, newText) => {
     let temp = [...notes];
@@ -85,6 +87,10 @@ function App() {
   }
 
   let displayNotes = [...notes];
+  for(let i = 0; i < displayNotes.length; i++) {
+    displayNotes[i] = {...displayNotes[i], idx: i}
+  }
+
   if (filter) {
     displayNotes = displayNotes.filter(note => note.bucket === filter);
   }
@@ -98,14 +104,16 @@ function App() {
       <Tools
         allBuckets={buckets}
         filter={filter}
+        groups={groups}
         addNote={addNote}
         sortNotes={sortNotes}
         setFilter={setFilter}
+        setGroups={setGroups}
       />
 
       <div className={classes.notesContainer}>
 
-        {displayNotes.map((note, i) => (
+        {!groups && displayNotes.map((note, i) => (
           <Note
             text={note.text}
             color={note.color}
@@ -115,10 +123,28 @@ function App() {
             addBucket={addBucket}
             setBucket={setBucket}
             allBuckets={buckets}
-            idx={i}
+            idx={note.idx}
             key={i}
           />
         ))}
+
+        {groups && buckets.map((bucket) => {
+
+          const bucketNotes = displayNotes.filter(note => note.bucket === bucket);
+          if (bucketNotes.length===0) return null;
+
+          return (
+            <GroupHighlights
+              displayNotes={bucketNotes}
+              allBuckets={buckets}
+              setText={setText}
+              removeNote={removeNote}
+              addBucket={addBucket}
+              setBucket={setBucket}
+            />
+          )
+        }
+        )}
 
         {notes.length === 0 ?
           <div className={classes.emptyMessage}>

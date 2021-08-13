@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     padding: '0.1rem 0.5rem',
     margin: '0 0.2rem',
     color: 'white',
-    textTransform: 'none',
+    textTransform: 'capitalize',
     '&:hover': {
       background: 'rgb(53, 77, 144)',
     }

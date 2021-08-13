@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '1rem',
     marginBottom: '0',
     background: 'rgb(17, 223, 228)',
-    textTransform: 'none'
+    textTransform: 'capitalize'
   }
 }));
 
