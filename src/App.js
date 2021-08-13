@@ -5,16 +5,21 @@ import Note from './Note';
 
 const useStyles = makeStyles({
   root: {
-    padding: '0.5rem'
+    height: '100vh'
   },
   title: {
     fontSize: '1.8rem',
-    margin: '1rem'
+    padding: '1rem',
+    margin: '0rem'
   },
   notesContainer: {
+    marginTop: '1rem',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around'
+  },
+  emptyMessage: {
+    textAlign: 'center'
   }
 });
 
@@ -94,6 +99,7 @@ function App() {
       />
 
       <div className={classes.notesContainer}>
+
         {displayNotes.map((note, i) => (
           <Note
             text={note.text}
@@ -108,7 +114,18 @@ function App() {
             key={i}
           />
         ))}
+
+        {notes.length === 0 ?
+          <div className={classes.emptyMessage}>
+            No notes yet.<br />
+            Add one now using the + button.
+          </div>
+          :
+          null
+        }
+
       </div>
+
 
     </div>
   );

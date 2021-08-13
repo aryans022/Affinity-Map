@@ -96,7 +96,7 @@ function Note(props) {
             setAnchor(null);
           }}
           >
-            Add Bucket
+            New Bucket
           </MenuItem>
 
           {
