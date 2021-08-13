@@ -27,7 +27,7 @@ Contents
 ### Running the project
 ---
    
-1. Open another powershell/command prompt and run the following commands in the project's root directory to start the react client.
+1. Open powershell/command prompt and run the following commands in the project's root directory to start the react client.
     + `$ npm install`
     + `$ npm start`
 
