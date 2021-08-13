@@ -62,6 +62,11 @@ function App() {
   }
 
   const addBucket = (idx, name) => {
+
+    name = name.trim();
+
+    if (name === "") return;
+
     let temp = [...notes];
     temp[idx].bucket = name;
     setNotes(temp);

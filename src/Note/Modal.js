@@ -5,15 +5,24 @@ import { Modal, TextField, Button } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
+    padding: '2.5rem',
+    backgroundColor: 'white',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    textAlign: 'center',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
+  title: {
+    margin: '0.5rem'
+  },
+  button: {
+    margin: '1rem',
+    marginBottom: '0',
+    background: 'rgb(17, 223, 228)',
+    textTransform: 'none'
+  }
 }));
 
 export default function SimpleModal(props) {
@@ -24,6 +33,7 @@ export default function SimpleModal(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setName('');
   };
 
   return (
@@ -32,12 +42,24 @@ export default function SimpleModal(props) {
       onClose={handleClose}
     >
       <div className={classes.paper}>
-        <h2>Add Bucket</h2>
+        <h2 className={classes.title}>Add Bucket</h2>
         <TextField
-          label="Bucket Name"
+          label="Name"
+          value={name}
           onChange={e => setName(e.target.value)}
         />
-        <Button onClick={() => {addBucket(idx, name); setOpen(false)}}>Add</Button>
+        <div>
+          <Button
+            className={classes.button}
+            onClick={() => {
+              addBucket(idx, name);
+              setName('');
+              setOpen(false);
+            }}
+          >
+            Add
+          </Button>
+        </div>
       </div>
     </Modal>
   );
