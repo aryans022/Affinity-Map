@@ -4,7 +4,7 @@ import Note from '../Note';
 
 const useStyles = makeStyles({
   root: {
-    background: 'rgba(0, 0, 0, 0.5)',
+    background: 'rgba(0, 0, 0, 0.4)',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',

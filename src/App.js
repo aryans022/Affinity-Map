@@ -11,7 +11,8 @@ const useStyles = makeStyles({
   title: {
     fontSize: '1.8rem',
     padding: '1rem',
-    margin: '0rem'
+    margin: '0rem',
+    textAlign: 'center'
   },
   notesContainer: {
     marginTop: '1rem',
@@ -67,7 +68,7 @@ function App() {
 
     name = name.trim();
 
-    if (name === "") return;
+    if (name === '' || buckets.includes(name)) return;
 
     let temp = [...notes];
     temp[idx].bucket = name;
@@ -141,6 +142,7 @@ function App() {
               removeNote={removeNote}
               addBucket={addBucket}
               setBucket={setBucket}
+              key={`${bucket}`}
             />
           )
         }

@@ -100,10 +100,11 @@ function Note(props) {
           </MenuItem>
 
           {
-            allBuckets.map(currentBucket =>
+            allBuckets.map((currentBucket, i) =>
               <MenuItem
                 onClick={handleClick}
                 data-value={currentBucket}
+                key={`currentBucket-${i}`}
               >
                 {currentBucket}
               </MenuItem>

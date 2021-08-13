@@ -77,11 +77,14 @@ function Tools(props) {
         </MenuItem>
 
         {
-          allBuckets.map(currentBucket =>
-            <MenuItem onClick={() => {
-              setFilter(currentBucket)
-              setAnchor(null);
-            }}>
+          allBuckets.map((currentBucket, i) =>
+            <MenuItem
+              onClick={() => {
+                setFilter(currentBucket)
+                setAnchor(null);
+              }}
+              key={`menuItem${i}`}
+            >
               {currentBucket}
             </MenuItem>
           )
