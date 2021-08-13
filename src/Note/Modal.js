@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleModal(props) {
   const classes = useStyles();
 
-  const { open, setOpen, addBucket } = props
+  const { open, setOpen, addBucket, idx } = props
   const [name, setName] = useState('');
 
   const handleClose = () => {
@@ -37,7 +37,7 @@ export default function SimpleModal(props) {
           label="Bucket Name"
           onChange={e => setName(e.target.value)}
         />
-        <Button onClick={() => {addBucket(name); setOpen(false)}}>Add</Button>
+        <Button onClick={() => {addBucket(idx, name); setOpen(false)}}>Add</Button>
       </div>
     </Modal>
   );

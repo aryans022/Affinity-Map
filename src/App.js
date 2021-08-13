@@ -56,7 +56,10 @@ function App() {
     setFilter(null);
   }
 
-  const addBucket = (name) => {
+  const addBucket = (idx, name) => {
+    let temp = [...notes];
+    temp[idx].bucket = name;
+    setNotes(temp);
     setBuckets([...buckets, name]);
   }
   const setBucket = (idx, newBucket) => {

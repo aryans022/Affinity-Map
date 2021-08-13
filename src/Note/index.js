@@ -83,7 +83,7 @@ function Note(props) {
         >
           {bucket ? bucket : 'Add Bucket'}
         </Button>
-        
+
         <Menu
           anchorEl={anchor}
           keepMounted
@@ -129,6 +129,7 @@ function Note(props) {
       <SimpleModal
         open={open}
         setOpen={setOpen}
+        idx={idx}
         addBucket={addBucket}
       />
 
