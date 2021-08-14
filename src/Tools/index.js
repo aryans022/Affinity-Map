@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 function Tools(props) {
 
   const [anchor, setAnchor] = useState(null);
-  const { addNote, sortNotes, filter, groups, setFilter, allBuckets, setGroups } = props;
+  const { addNote, sortNotes, filter, groups, position, setFilter, allBuckets, setGroups } = props;
   const classes = useStyles();
 
   return (
@@ -43,7 +43,7 @@ function Tools(props) {
         className={classes.button}
         onClick={sortNotes}
       >
-        Sort Notes
+        {position ? 'Standard View' : 'Sorted View'}
       </Button>}
 
       <Button

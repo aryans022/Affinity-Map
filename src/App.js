@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Tools from './Tools';
 import Note from './Note';
 import GroupHighlights from './GroupHighlights';
+import Draggable from 'react-draggable';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +19,8 @@ const useStyles = makeStyles({
     marginTop: '1rem',
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    position: 'relative'
   },
   emptyMessage: {
     textAlign: 'center'
@@ -40,6 +42,7 @@ function App() {
   const [buckets, setBuckets] = useState(localStorage?.notes ? JSON.parse(localStorage.buckets) : []);
   const [filter, setFilter] = useState(null);
   const [groups, setGroups] = useState(false);
+  const [position, setPosition] = useState(null);
 
   const setText = (idx, newText) => {
     let temp = [...notes];
@@ -84,12 +87,13 @@ function App() {
   const sortNotes = () => {
     let temp = [...notes]
     temp.sort((a, b) => (a.bucket > b.bucket) ? 1 : ((b.bucket > a.bucket) ? -1 : 0));
-    setNotes(temp)
+    setNotes(temp);
+    setPosition(position?null:{x:0, y:0});
   }
 
   let displayNotes = [...notes];
-  for(let i = 0; i < displayNotes.length; i++) {
-    displayNotes[i] = {...displayNotes[i], idx: i}
+  for (let i = 0; i < displayNotes.length; i++) {
+    displayNotes[i] = { ...displayNotes[i], idx: i }
   }
 
   if (filter) {
@@ -106,6 +110,7 @@ function App() {
         allBuckets={buckets}
         filter={filter}
         groups={groups}
+        position={position}
         addNote={addNote}
         sortNotes={sortNotes}
         setFilter={setFilter}
@@ -115,24 +120,25 @@ function App() {
       <div className={classes.notesContainer}>
 
         {!groups && displayNotes.map((note, i) => (
-          <Note
-            text={note.text}
-            color={note.color}
-            bucket={note.bucket}
-            setText={setText}
-            removeNote={removeNote}
-            addBucket={addBucket}
-            setBucket={setBucket}
-            allBuckets={buckets}
-            idx={note.idx}
-            key={i}
-          />
+          <Draggable key={i} position={position}><div>
+            <Note
+              text={note.text}
+              color={note.color}
+              bucket={note.bucket}
+              setText={setText}
+              removeNote={removeNote}
+              addBucket={addBucket}
+              setBucket={setBucket}
+              allBuckets={buckets}
+              idx={note.idx}
+            />
+          </div></Draggable>
         ))}
 
         {groups && buckets.map((bucket) => {
 
           const bucketNotes = displayNotes.filter(note => note.bucket === bucket);
-          if (bucketNotes.length===0) return null;
+          if (bucketNotes.length === 0) return null;
 
           return (
             <GroupHighlights
@@ -158,7 +164,6 @@ function App() {
         }
 
       </div>
-
 
     </div>
   );
