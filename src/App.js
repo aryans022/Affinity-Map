@@ -43,6 +43,7 @@ function App() {
   const [filter, setFilter] = useState(null);
   const [groups, setGroups] = useState(false);
   const [position, setPosition] = useState(null);
+  const [maxIndex, setMaxIndex] = useState(0);
 
   const setText = (idx, newText) => {
     let temp = [...notes];
@@ -61,7 +62,9 @@ function App() {
       {
         text: '',
         color: colors[Math.floor(Math.random() * colors.length)],
-        bucket: ''
+        bucket: '',
+        zIndex: 0,
+        pointerEvents: 'all'
       }
     ]);
     setFilter(null);
@@ -88,7 +91,7 @@ function App() {
     let temp = [...notes]
     temp.sort((a, b) => (a.bucket > b.bucket) ? 1 : ((b.bucket > a.bucket) ? -1 : 0));
     setNotes(temp);
-    setPosition(position?null:{x:0, y:0});
+    setPosition(position ? null : { x: 0, y: 0 });
   }
 
   let displayNotes = [...notes];
@@ -120,19 +123,38 @@ function App() {
       <div className={classes.notesContainer}>
 
         {!groups && displayNotes.map((note, i) => (
-          <Draggable key={i} position={position}><div>
-            <Note
-              text={note.text}
-              color={note.color}
-              bucket={note.bucket}
-              setText={setText}
-              removeNote={removeNote}
-              addBucket={addBucket}
-              setBucket={setBucket}
-              allBuckets={buckets}
-              idx={note.idx}
-            />
-          </div></Draggable>
+          <Draggable
+            key={i}
+            position={position}
+            onStart={() => {
+              let temp = [...notes];
+              temp[note.idx].zIndex = maxIndex + 1;
+              temp.pointerEvents = 'none';
+              setNotes(temp);
+              setMaxIndex(maxIndex + 1);
+            }}
+            onStop={() => {
+              let temp = [...notes];
+              temp.pointerEvents = 'all';
+              setNotes(temp);
+            }}
+          >
+            <div
+              style={{ pointerEvents: note.pointerEvents, zIndex: note.zIndex}}
+            >
+              <Note
+                text={note.text}
+                color={note.color}
+                bucket={note.bucket}
+                setText={setText}
+                removeNote={removeNote}
+                addBucket={addBucket}
+                setBucket={setBucket}
+                allBuckets={buckets}
+                idx={note.idx}
+              />
+            </div>
+          </Draggable>
         ))}
 
         {groups && buckets.map((bucket) => {

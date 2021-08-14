@@ -49,6 +49,7 @@ const useStyles = makeStyles({
     margin: '0 0.2rem',
     color: 'white',
     textTransform: 'capitalize',
+    pointerEvents:'all',
     '&:hover': {
       background: 'rgb(53, 77, 144)',
     }
