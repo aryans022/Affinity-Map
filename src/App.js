@@ -50,7 +50,7 @@ function App() {
 
   const classes = useStyles();
   const [notes, setNotes] = useState(localStorage?.notes ? JSON.parse(localStorage.notes) : []);
-  const [buckets, setBuckets] = useState(localStorage?.buckets ? JSON.parse(localStorage.buckets) : []);
+  const [buckets, setBuckets] = useState(localStorage?.buckets ? JSON.parse(localStorage.buckets) : [""]);
   const [filter, setFilter] = useState(null);
   const [groups, setGroups] = useState(false);
   const [position, setPosition] = useState(null);
@@ -147,7 +147,7 @@ function App() {
                 setCurrentBucket(null);
               }}
             >
-              <h3 className={classes.groupHeading}>{bucketNotes[0]?.bucket}</h3>
+              <h3 className={classes.groupHeading}>{bucketNotes[0]?.bucket || 'Not Assigned'}</h3>
               <NoteHolder
                 reqNotes={bucketNotes}
                 notes={notes}

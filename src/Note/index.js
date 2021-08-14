@@ -102,7 +102,7 @@ function Note(props) {
 
           {
             allBuckets.map((currentBucket, i) =>
-              <MenuItem
+              currentBucket && <MenuItem
                 onClick={handleClick}
                 data-value={currentBucket}
                 key={`currentBucket-${i}`}
