@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Tools from './Tools';
 import NoteHolder from './NoteHolder';
-import Draggable from 'react-draggable';
 
 const useStyles = makeStyles({
   root: {
