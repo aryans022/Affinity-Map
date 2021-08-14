@@ -6,9 +6,9 @@ Hosted at https://affinity-map.herokuapp.com/
 Video demo at https://vimeo.com/586701824
 
 The following features were added after creating the video demo
-+ Added drag and drop functionality or the standard view. Notes can be rearranged in any manner.
-+ Added drag and drop feature in sorted view to change a note's bucket to the bucket of the underneath note.
-+ Added drag to change bucket in the grouped view.
++ Added drag and drop functionality in the standard view. Notes can be rearranged in any manner.
++ Added drag and drop feature in the sorted view to change a note's bucket to the bucket of the note underneath it.
++ Added drag and drop to change bucket in the grouped view.
 
 Contents
 ========
