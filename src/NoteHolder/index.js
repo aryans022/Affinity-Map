@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Note from '../Note';
-import Draggable from 'react-draggable';
 
 function NoteHolder(props) {
 
