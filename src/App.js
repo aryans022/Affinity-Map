@@ -44,6 +44,7 @@ function App() {
   const [groups, setGroups] = useState(false);
   const [position, setPosition] = useState(null);
   const [maxIndex, setMaxIndex] = useState(0);
+  const [currentBucket, setCurrentBucket] = useState(null);
 
   const setText = (idx, newText) => {
     let temp = [...notes];
@@ -72,7 +73,7 @@ function App() {
 
   const addBucket = (idx, name) => {
 
-    name = name.trim();
+    name = name.trim().toLowerCase();
 
     if (name === '' || buckets.includes(name)) return;
 
@@ -80,6 +81,7 @@ function App() {
     temp[idx].bucket = name;
     setNotes(temp);
     setBuckets([...buckets, name]);
+    localStorage.setItem('buckets', JSON.stringify([...buckets, name]));
   }
   const setBucket = (idx, newBucket) => {
     let temp = [...notes];
@@ -103,7 +105,6 @@ function App() {
     displayNotes = displayNotes.filter(note => note.bucket === filter);
   }
   localStorage.setItem('notes', JSON.stringify(notes));
-  localStorage.setItem('buckets', JSON.stringify(buckets));
 
   return (
     <div className={classes.root}>
@@ -129,18 +130,27 @@ function App() {
             onStart={() => {
               let temp = [...notes];
               temp[note.idx].zIndex = maxIndex + 1;
-              temp.pointerEvents = 'none';
+              temp[note.idx].pointerEvents = 'none';
               setNotes(temp);
               setMaxIndex(maxIndex + 1);
             }}
             onStop={() => {
               let temp = [...notes];
-              temp.pointerEvents = 'all';
+              temp[note.idx].pointerEvents = 'all';
+              if (position && currentBucket) {
+                temp[note.idx].bucket=currentBucket;
+              }
               setNotes(temp);
             }}
           >
             <div
               style={{ pointerEvents: note.pointerEvents, zIndex: note.zIndex}}
+              onMouseEnter={()=>{
+                setCurrentBucket(note.bucket);
+              }}
+              onMouseLeave={()=>{
+                setCurrentBucket(null);
+              }}
             >
               <Note
                 text={note.text}
